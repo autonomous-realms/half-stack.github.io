@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>我是Title</title>
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.12.1/jquery-ui.js"></script>		
+        <script type="text/javascript" src="js/vue.min.js"></script>
+        <script src="js/axios.min.js"></script>
+        <script src="js/sisyphus.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >
+    </head>
+    <body>
+        <div id="html_content">
+            <div style="text-align:center" ><h1>一个页面搞懂head、body、「html和javascript交互」</h1></div>
+            <br>
+            <div class="panel panel-default" style="width:50%;margin-left:auto;margin-right:auto;">
+                <div class="panel-heading">TITLE是什么？</div>
+                <div class="panel-body">
+                    <input type="text" class="form-control" placeholder="title-content" v-model="title_content">
+                    <br>                        
+                    <button type="button" class="btn btn-success" v-on:click="change_the_title()">改变Title</button>                    
+                </div>
+                <div class="panel-heading">body是什么？</div>
+                <div class="panel-body">
+                    {{body_change}}
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-success" v-on:click="change_the_body()">改变body</button>                    
+                </div>
+                <div class="panel-heading">javascript是如何和html交互的？</div>
+                <div class="panel-body">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">请输入一个数字：</span>
+                        <input type="text" class="form-control" placeholder="a number html will send" v-model="msg_to_js" aria-describedby="basic-addon1">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">从JS接收的数字：</span>
+                        <input type="text" class="form-control" placeholder="a number from js" v-model="msg_from_js"  aria-describedby="basic-addon1">
+                    </div>
+                    <br>
+                    <button type="button" class="btn btn-success" v-on:click="change_the_js()">发送信息给js模块</button>                    
+                </div>
+
+            </div>
+            <br>
+            <div class="panel panel-default" style="width:50%;margin-left:auto;margin-right:auto;">
+                <div class="panel-heading" style="background:rgba(122, 122, 122, 0.767);color:white">这是假设的javascript区域！</div>
+                <div class="panel-body">
+                    接受html中传来的信息：<b>{{msg_to_js_after}}</b>
+                    <br>
+                    处理一下（加个1）:<b>{{deal_msg}}</b>
+                    <br>             
+                </div>
+            </div>
+        </div>
+        <script>
+            the_codes=new Vue({
+                el:'#html_content',
+                data:
+                {
+                    title_content:'',
+                    body_change:'body背景色为白',
+                    msg_to_js:'',
+                    msg_to_js_after:'',
+                    deal_msg:'',
+                    msg_from_js:''
+                },
+                methods:
+                {
+                    change_the_js:function()
+                    {
+                        the_codes.msg_to_js_after=the_codes.msg_to_js
+                        setTimeout("the_codes.deal_msg=(Number(the_codes.msg_to_js)+1).toString()",1000)
+                        setTimeout("the_codes.msg_from_js=the_codes.deal_msg",2000)
+                        
+                    },
+                    change_the_title:function()
+                    {
+                        document.title=the_codes.title_content
+                    },
+                    change_the_body:function()
+                    {
+                        document.body.style.backgroundColor="#CCCCCC"
+                        the_codes.body_change="body的背景变灰了！"
+                    }
+                }
+
+            })
+
+        </script>
+    </body>
+</html>
