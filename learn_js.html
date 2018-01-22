@@ -1,0 +1,39 @@
+<html>
+<head>
+</head>
+<body>
+    <div id="broccoli"></div>
+    <script>
+        var broccoli = new Object();    //定义对象「西兰花」
+        broccoli.can_be_ate=false;      //「西兰花」没熟
+        var oil = new Object();     //定义对象「油」
+        oil.if_hot=false;   //油没热
+
+        function cook_broccoli()    //函数：炒西兰花
+        {
+            console.log("西兰花可以吃了吗？")
+            if(oil.if_hot==false)
+            {
+                console.log("油不热，先把油加热")
+                oil.if_hot=true;
+
+                console.log("再炒西兰花")
+                broccoli.can_be_ate=true;
+                console.log("西兰花可以吃了")
+            }
+            else
+            {
+                    console.log("油是热的，直接炒西兰花")
+                    broccoli.can_be_ate=true;
+                    
+                    console.log("西兰花可以吃了")
+            }
+        }
+
+        cook_broccoli();    //执行函数
+        document.getElementById("broccoli").innerHTML="西兰花能吃了吗？"+broccoli.can_be_ate
+
+
+        </script>
+</body>
+</html>
